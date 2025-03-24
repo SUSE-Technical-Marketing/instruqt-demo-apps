@@ -1,3 +1,5 @@
 architecture: standalone
 auth:
   password: "password"
+global:
+  imagePullSecrets: [application-collection]
