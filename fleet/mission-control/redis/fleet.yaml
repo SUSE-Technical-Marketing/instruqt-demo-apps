@@ -1,0 +1,6 @@
+defaultNamespace: redis
+helm:
+  chart: oci://dp.apps.rancher.io/charts/redis
+  releaseName: redis
+  valuesFiles:
+    - values.yaml

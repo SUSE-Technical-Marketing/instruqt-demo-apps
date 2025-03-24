@@ -1,0 +1,11 @@
+defaultNamespace: mission-control
+helm:
+  chart: oci://ghcr.io/suse-technical-marketing/mission-control-demo/charts/mission-control
+  releaseName: mission-control
+  valuesFiles:
+    - values.yaml
+  valuesFrom:
+    - configMapKeyRef:
+        name: mission-control-values
+        namespace: mission-control
+        key: values.yaml
