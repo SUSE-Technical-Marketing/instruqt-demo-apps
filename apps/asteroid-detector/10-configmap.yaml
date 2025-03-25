@@ -2,7 +2,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: asteroid-detector-app-code
-  namespace: asteroid
+  namespace: sensors
 data:
   asteroid-detector.js: |
     const location = process.env.SCANNING_LOCATION;
