@@ -1,0 +1,24 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: mission-control-probe
+  namespace: default
+spec:
+  template:
+    metadata:
+      name: mission-control-probe
+      labels:
+        app: mission-control-probe
+    spec:
+      containers:
+      - name: k6
+        image: grafana/k6:latest
+        command: ["k6", "run", "/scripts/scenario.ts"]
+        volumeMounts:
+        - name: k6-script
+          mountPath: /scripts
+      restartPolicy: Never
+      volumes:
+      - name: k6-script
+        configMap:
+          name: mission-control-probe-code
