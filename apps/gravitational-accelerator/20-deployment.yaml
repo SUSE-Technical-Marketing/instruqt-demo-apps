@@ -15,16 +15,17 @@ spec:
     spec:
       containers:
       - name: gravitational-accelerator
-        image: node:18
+        image: registry.suse.com/bci/nodejs:20
         command: ["/bin/sh", "-c"]
         args:
           - |
+            mkdir node && cd node && cp /app/gravitational-accelerator.js . &&
             npm install @opentelemetry/api \
               @opentelemetry/sdk-node \
               @opentelemetry/instrumentation-http \
               @opentelemetry/auto-instrumentations-node \
               @opentelemetry/exporter-prometheus &&
-            node /app/app.js
+            node gravitational-accelerator.js
         env:
         - name: MAINTENANCE_MODE
           value: "false"
@@ -32,10 +33,10 @@ spec:
           value: "9464"
         resources:
           requests:
-            memory: "64Mi"   # Requests 64Mi of memory
+            memory: "128Mi"   # Requests 64Mi of memory
             cpu: "100m"      # Requests 100 millicores of CPU
           limits:
-            memory: "128Mi"  # Limits memory usage to 128Mi
+            memory: "256Mi"  # Limits memory usage to 128Mi
             cpu: "200m"      # Limits CPU usage to 200 millicores
         volumeMounts:
         - name: app-code
