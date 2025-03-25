@@ -1,2 +1,4 @@
 env:
   REDIS_PASSWORD: "password"
+powerCore:
+  instabilityFactor: 0
