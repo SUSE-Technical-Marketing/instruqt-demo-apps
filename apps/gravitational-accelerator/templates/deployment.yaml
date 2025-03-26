@@ -50,4 +50,4 @@ spec:
       volumes:
       - name: app-code
         configMap:
-          name: gravitational-accelerator-code
+          name: {{ .Release.Name }}-code

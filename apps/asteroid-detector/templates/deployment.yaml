@@ -1,8 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: asteroid-detector
-  namespace: sensors
+  name: {{ .Release.Name }}
 spec:
   replicas: 1
   selector:
@@ -15,7 +14,7 @@ spec:
     spec:
       containers:
       - name: asteroid-detector
-        image: node:18
+        image: {{ .Values.detector.image}}
         command: ["node", "/app/asteroid-detector.js"]
         volumeMounts:
         - name: app-code
@@ -28,15 +27,15 @@ spec:
           valueFrom:
             configMapKeyRef:
               key: scanning_location
-              name: asteroid-detector-config
+              name: {{ .Rele.Name }}-config
         resources:
           requests:
-            cpu: "100m"
-            memory: "64Mi"
+            cpu: {{ .Values.detector.resources.requests.cpu }}
+            memory: {{ .Values.detector.resources.requests.memory }}
           limits:
-            cpu: "200m"
-            memory: "128Mi"
+            cpu: {{ .Values.detector.resources.limits.cpu }}
+            memory: {{ .Values.detector.resources.limits.memory }}
       volumes:
       - name: app-code
         configMap:
-          name: asteroid-detector-app-code
+          name: {{ .Release.Name }}-app-code

@@ -1,7 +1,7 @@
 global:
   imagePullSecrets: []
 
-accelerator:
+detector:
   image: node:23-alpine
   resources:
     requests:
@@ -10,7 +10,3 @@ accelerator:
     limits:
       memory: "256Mi"
       cpu: "200m"
-
-k6:
-  loadTest:
-    duration: "2h"
