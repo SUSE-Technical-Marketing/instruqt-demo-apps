@@ -12,6 +12,12 @@ spec:
       labels:
         app: asteroid-detector
     spec:
+      {{- with .Values.global.imagePullSecrets }}
+      imagePullSecrets:
+      {{- range $ps := . }}
+      - name: {{ $ps }}
+      {{- end }}
+      {{- end }}
       containers:
       - name: asteroid-detector
         image: {{ .Values.detector.image}}
@@ -27,7 +33,7 @@ spec:
           valueFrom:
             configMapKeyRef:
               key: scanning_location
-              name: {{ .Rele.Name }}-config
+              name: {{ .Release.Name }}-config
         resources:
           requests:
             cpu: {{ .Values.detector.resources.requests.cpu }}
