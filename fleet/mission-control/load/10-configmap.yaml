@@ -20,11 +20,11 @@ data:
     export default function () {
       let res = http.get('http://frontend-service.mission-control.svc.cluster.local:8080/api/gravity');
       check(res, { 'Gravity operational': (r) => r.status === 200 });
-      let res = http.get('http://frontend-service.mission-control.svc.cluster.local:8080/api/airlock');
+      res = http.get('http://frontend-service.mission-control.svc.cluster.local:8080/api/airlock');
       check(res, { 'Airlock operational': (r) => r.status === 200 });
-      let res = http.get('http://frontend-service.mission-control.svc.cluster.local:8080/api/life-support');
+      res = http.get('http://frontend-service.mission-control.svc.cluster.local:8080/api/life-support');
       check(res, { 'Life Support operational': (r) => r.status === 200 });
-      let res = http.get('http://frontend-service.mission-control.svc.cluster.local:8080/api/power-core/all');
+      res = http.get('http://frontend-service.mission-control.svc.cluster.local:8080/api/power-core/all');
       check(res, { 'Power Cores operational': (r) => r.status === 200 });
       sleep(1);
     }
