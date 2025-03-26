@@ -2,7 +2,7 @@ global:
   imagePullSecrets: []
 
 accelerator:
-  image: dp.apps.rancher.io/containers/node:22.14.0
+  image: dp.apps.rancher.io/containers/nodejs:22.14.0
   resources:
     requests:
       memory: "128Mi"
