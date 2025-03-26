@@ -1,0 +1,16 @@
+global:
+  imagePullSecrets: []
+
+accelerator:
+  image: dp.apps.rancher.io/containers/node:22.14.0
+  resources:
+    requests:
+      memory: "128Mi"
+      cpu: "100m"
+    limits:
+      memory: "256Mi"
+      cpu: "200m"
+
+k6:
+  loadTest:
+    duration: "2h"

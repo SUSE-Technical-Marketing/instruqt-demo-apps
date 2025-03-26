@@ -1,8 +1,7 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: gravitational-accelerator-probe
-  namespace: gravity
+  name: {{ .Release.Name }}-probe
 spec:
   template:
     metadata:

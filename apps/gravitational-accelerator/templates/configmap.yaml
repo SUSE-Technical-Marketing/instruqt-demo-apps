@@ -1,8 +1,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: gravitational-accelerator-code
-  namespace: gravity
+  name: {{ .Release.Name }}-code
 data:
   gravitational-accelerator.js: |
     const http = require('http');
@@ -64,12 +63,12 @@ data:
       stages: [
         { duration: '2m', target: 0 },
         { duration: '30s', target: 4 },
-        { duration: '2h', target: 4 }, // long enough for lab to continue running.
+        { duration: '{{ .Values.k6.loadTest.duration }}', target: 4 }, // long enough for lab to continue running.
       ],
     };
 
     export default function () {
-      let res = http.get('http://gravitational-accelerator.gravity.svc.cluster.local:8080');
-      check(res, { 'Tardis operational': (r) => r.status === 200 });
+      let res = http.get('http://{{ .Release.Name }}.{{ .Release.Namespace }}.svc.cluster.local:8080');
+      check(res, { 'Gravity operational': (r) => r.status === 200 });
       sleep(1);
     }

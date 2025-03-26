@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: gravitational-accelerator
+  name: {{ .Release.Name }}
   namespace: gravity
 spec:
   replicas: 1
@@ -13,9 +13,14 @@ spec:
       labels:
         app: gravitational-accelerator
     spec:
+      {{- with .Values.global.imagePullSecrets }}
+      imagePullSecrets:
+      {{- range $ps := . }}
+      - name: {{ $ps }}
+      {{- end }}
       containers:
       - name: gravitational-accelerator
-        image: dp.apps.rancher.io/containers/nodejs:22.14.0
+        image: {{ .Values.accelerator.image }}
         command: ["/bin/sh", "-c"]
         args:
           - |
@@ -33,11 +38,11 @@ spec:
           value: "9464"
         resources:
           requests:
-            memory: "128Mi"   # Requests 64Mi of memory
-            cpu: "100m"      # Requests 100 millicores of CPU
+            memory: {{ .Values.accelerator.resources.requests.memory }}
+            cpu: {{ .Values.accelerator.resources.requests.cpu }}
           limits:
-            memory: "256Mi"  # Limits memory usage to 128Mi
-            cpu: "200m"      # Limits CPU usage to 200 millicores
+            memory: {{ .Values.accelerator.resources.limits.memory }}
+            cpu: {{ .Values.accelerator.resources.limits.cpu }}
         volumeMounts:
         - name: app-code
           mountPath: /app
