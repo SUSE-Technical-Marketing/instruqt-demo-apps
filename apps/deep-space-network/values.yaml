@@ -2,7 +2,7 @@ global:
   imagePullSecrets: []
 nginx:
   # Pull the latest nginx image from Docker Hub
-  image: nginx:latest
+  image: dp.apps.rancher.io/containers/nginx:1.26.3
   replicas: 1
   ingress:
     annotations:
