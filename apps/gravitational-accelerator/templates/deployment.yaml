@@ -24,12 +24,12 @@ spec:
         command: ["/bin/sh", "-c"]
         args:
           - |
-            mkdir node && cd node && cp /app/gravitational-accelerator.js . &&
+            mkdir node && cd node && cp /app/gravitational-accelerator.js . && \
             npm install @opentelemetry/api \
               @opentelemetry/sdk-node \
               @opentelemetry/instrumentation-http \
               @opentelemetry/auto-instrumentations-node \
-              @opentelemetry/exporter-prometheus &&
+              @opentelemetry/exporter-prometheus && \
             node gravitational-accelerator.js
         env:
         - name: MAINTENANCE_MODE
