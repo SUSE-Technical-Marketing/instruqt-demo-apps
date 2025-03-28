@@ -1,0 +1,171 @@
+apiVersion: neuvector.com/v1
+kind: NvSecurityRule
+metadata:
+  creationTimestamp: null
+  name: nv.redis-master.redis
+  namespace: redis
+spec:
+  dlp:
+    settings: []
+    status: true
+  egress: []
+  file: []
+  ingress: []
+  process:
+  - action: allow
+    allow_update: false
+    name: awk
+    path: /usr/bin/mawk
+  - action: allow
+    allow_update: false
+    name: bash
+    path: /usr/bin/bash
+  - action: allow
+    allow_update: false
+    name: head
+    path: /usr/bin/head
+  - action: allow
+    allow_update: false
+    name: mawk
+    path: /usr/bin/mawk
+  - action: allow
+    allow_update: false
+    name: pause
+    path: /pause
+  - action: allow
+    allow_update: false
+    name: redis-cli
+    path: /opt/bitnami/redis/bin/redis-cli
+  - action: allow
+    allow_update: false
+    name: redis-server
+    path: /opt/bitnami/redis/bin/redis-server
+  - action: allow
+    allow_update: false
+    name: sh
+    path: '*'
+  - action: allow
+    allow_update: false
+    name: sh
+    path: /usr/bin/dash
+  - action: allow
+    allow_update: false
+    name: timeout
+    path: /usr/bin/timeout
+  process_profile:
+    baseline: basic
+    mode: Protect
+  target:
+    policymode: Protect
+    selector:
+      comment: ""
+      criteria:
+      - key: service
+        op: =
+        value: redis-master.redis
+      - key: domain
+        op: =
+        value: redis
+      grp_band_width: 0
+      grp_sess_cur: 0
+      grp_sess_rate: 0
+      mon_metric: false
+      name: nv.redis-master.redis
+      original_name: ""
+  waf:
+    settings: []
+    status: true
+- apiVersion: neuvector.com/v1
+kind: NvSecurityRule
+metadata:
+  creationTimestamp: null
+  name: nv.redis.redis
+  namespace: redis
+spec:
+  dlp:
+    settings: []
+    status: true
+  egress: []
+  file: []
+  ingress:
+  - action: allow
+    applications:
+    - Redis
+    name: nv.redis.redis-ingress-0
+    ports: any
+    priority: 0
+    selector:
+      comment: ""
+      criteria:
+      - key: service
+        op: =
+        value: airlock.mission-control
+      - key: domain
+        op: =
+        value: mission-control
+      name: nv.airlock.mission-control
+      original_name: ""
+  process:
+  - action: allow
+    allow_update: false
+    name: bash
+    path: /usr/bin/bash
+  - action: allow
+    allow_update: false
+    name: cat
+    path: /usr/bin/cat
+  - action: allow
+    allow_update: false
+    name: getent
+    path: /usr/bin/getent
+  - action: allow
+    allow_update: false
+    name: pause
+    path: /pause
+  - action: allow
+    allow_update: false
+    name: redis-cli
+    path: /usr/bin/redis-cli
+  - action: allow
+    allow_update: false
+    name: redis-liveness-check.sh
+    path: /mnt/redis/scripts/redis-liveness-check.sh
+  - action: allow
+    allow_update: false
+    name: redis-readiness-check.sh
+    path: /mnt/redis/scripts/redis-readiness-check.sh
+  - action: allow
+    allow_update: false
+    name: redis-server
+    path: /usr/bin/redis-server
+  - action: allow
+    allow_update: false
+    name: sort
+    path: /usr/bin/sort
+  - action: allow
+    allow_update: false
+    name: uniq
+    path: /usr/bin/uniq
+  process_profile:
+    baseline: basic
+    mode: Protect
+  target:
+    policymode: Protect
+    selector:
+      comment: ""
+      criteria:
+      - key: service
+        op: =
+        value: redis.redis
+      - key: domain
+        op: =
+        value: redis
+      grp_band_width: 0
+      grp_sess_cur: 0
+      grp_sess_rate: 0
+      mon_metric: false
+      name: nv.redis.redis
+      original_name: ""
+  waf:
+    settings: []
+    status: true
