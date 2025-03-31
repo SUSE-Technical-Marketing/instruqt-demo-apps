@@ -11,5 +11,5 @@ nginx:
 
 k6:
   loadTest:
-    duration: "60m"
+    duration: "4h"
     vus: 10

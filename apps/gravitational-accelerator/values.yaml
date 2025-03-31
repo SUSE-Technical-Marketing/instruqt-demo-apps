@@ -13,4 +13,4 @@ accelerator:
 
 k6:
   loadTest:
-    duration: "2h"
+    duration: "6h"
